@@ -1,0 +1,335 @@
+@import "tailwindcss";
+@import "@fontsource/instrument-serif/400.css";
+@import "@fontsource/instrument-serif/400-italic.css";
+
+/*
+ * Plimsoll design language — "chart room".
+ * Paper the colour of an Admiralty chart, ink-navy type, and the three
+ * signal colours of the International Code of Signals for severity:
+ *   red (Bravo) = blocker · amber = warning · blue = advisory · sea-green = agrees.
+ */
+
+:root {
+  --paper: #f3efe5;
+  --paper-2: #ebe5d7;
+  --card: #fbf9f3;
+  --ink: #0e1b2b;
+  --ink-2: #33445a;
+  --muted: #677386;
+  --line: #d9d1c0;
+  --line-2: #c7bda8;
+  --red: #c8312a;
+  --red-soft: #f6dcd6;
+  --amber: #c98a0b;
+  --amber-soft: #f7e8c4;
+  --blue: #2a58a6;
+  --blue-soft: #dbe5f5;
+  --sea: #0d6b63;
+  --sea-soft: #d3ebe6;
+  --water: #1d4f7a;
+  --hull: #1a2533;
+  --grid: rgba(14, 27, 43, 0.045);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0c141e;
+    --paper-2: #111c29;
+    --card: #142131;
+    --ink: #ece6d8;
+    --ink-2: #c3bcac;
+    --muted: #8d97a6;
+    --line: #243447;
+    --line-2: #33475e;
+    --red: #ef5b4f;
+    --red-soft: #3a1b1b;
+    --amber: #f0b43c;
+    --amber-soft: #382b10;
+    --blue: #6f9be6;
+    --blue-soft: #16253f;
+    --sea: #3fb7a8;
+    --sea-soft: #10302d;
+    --water: #2c6ea3;
+    --hull: #d9d2c2;
+    --grid: rgba(236, 230, 216, 0.035);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0c141e;
+  --paper-2: #111c29;
+  --card: #142131;
+  --ink: #ece6d8;
+  --ink-2: #c3bcac;
+  --muted: #8d97a6;
+  --line: #243447;
+  --line-2: #33475e;
+  --red: #ef5b4f;
+  --red-soft: #3a1b1b;
+  --amber: #f0b43c;
+  --amber-soft: #382b10;
+  --blue: #6f9be6;
+  --blue-soft: #16253f;
+  --sea: #3fb7a8;
+  --sea-soft: #10302d;
+  --water: #2c6ea3;
+  --hull: #d9d2c2;
+  --grid: rgba(236, 230, 216, 0.035);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-card: var(--card);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-2: var(--line-2);
+  --color-red: var(--red);
+  --color-red-soft: var(--red-soft);
+  --color-amber: var(--amber);
+  --color-amber-soft: var(--amber-soft);
+  --color-blue: var(--blue);
+  --color-blue-soft: var(--blue-soft);
+  --color-sea: var(--sea);
+  --color-sea-soft: var(--sea-soft);
+  --color-water: var(--water);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-display: "Instrument Serif", ui-serif, Georgia, serif;
+}
+
+html {
+  background: var(--paper);
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Faint chart grid on the page background. */
+.chart-grid {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Missing data: diagonal hatching, like an unsurveyed area on a chart. */
+.hatch {
+  background-image: repeating-linear-gradient(-45deg, transparent 0 5px, var(--line) 5px 6px);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.55rem 1.05rem;
+  font-size: 0.875rem;
+  font-weight: 550;
+  transition: transform 0.12s ease, background 0.15s ease, box-shadow 0.15s ease;
+  white-space: nowrap;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn:focus-visible,
+.focus-ring:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+.btn-ink {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn-ink:hover {
+  box-shadow: 0 6px 20px -8px var(--ink);
+}
+.btn-ghost {
+  border: 1px solid var(--line-2);
+  color: var(--ink);
+}
+.btn-ghost:hover {
+  background: var(--paper-2);
+}
+.btn-red {
+  background: var(--red);
+  color: #fff;
+}
+.btn:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.input {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--line-2);
+  background: var(--card);
+  padding: 0.55rem 0.75rem;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+.input:focus {
+  outline: 2px solid var(--blue);
+  outline-offset: 0;
+  border-color: transparent;
+}
+
+.label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ------------------------------------------------------------------ Stamps */
+.stamp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 2.5px solid currentColor;
+  border-radius: 6px;
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: rotate(-4deg);
+  mix-blend-mode: multiply;
+}
+:root[data-theme="dark"] .stamp {
+  mix-blend-mode: normal;
+}
+.stamp-in {
+  animation: stamp-in 0.5s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+}
+@keyframes stamp-in {
+  from {
+    transform: scale(2.4) rotate(-14deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(-4deg);
+    opacity: 1;
+  }
+}
+
+/* -------------------------------------------------------------------- Loom */
+.thread-path {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.thread-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: thread-draw 0.9s ease forwards;
+}
+@keyframes thread-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fray {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1.5px);
+  }
+}
+.fray {
+  animation: fray 1.6s ease-in-out infinite;
+}
+
+/* ---------------------------------------------------------------- Waterline */
+@keyframes swell {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-28px);
+  }
+}
+.swell {
+  animation: swell 7s ease-in-out infinite;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.rise {
+  animation: rise 0.6s ease both;
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+.scan-beam {
+  animation: scan 1.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+  .card {
+    break-inside: avoid;
+  }
+}
